@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>組裝電腦互動遊戲</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 700px; margin: 20px auto; }
+  h2 { color: #333; }
+  button { margin: 5px; padding: 8px 12px; cursor: pointer; }
+  .answer { font-weight: bold; margin-top: 5px; }
+</style>
+</head>
+<body>
+<h2>組裝電腦互動遊戲</h2>
+
+<h3>1. CPU 是什麼？</h3>
+<button onclick="showAnswer('q1','wrong')">記憶體</button>
+<button onclick="showAnswer('q1','right')">中央處理器</button>
+<p id="q1" class="answer"></p>
+
+<h3>2. 哪個零件負責圖像渲染？</h3>
+<button onclick="showAnswer('q2','wrong')">SSD</button>
+<button onclick="showAnswer('q2','right')">顯示卡</button>
+<p id="q2" class="answer"></p>
+
+<h3>3. 哪個零件用來暫存資料，速度快但容量較小？</h3>
+<button onclick="showAnswer('q3','right')">記憶體</button>
+<button onclick="showAnswer('q3','wrong')">硬碟</button>
+<p id="q3" class="answer"></p>
+
+<h3>4. 用來永久存儲系統和檔案的硬碟？</h3>
+<button onclick="showAnswer('q4','wrong')">記憶體</button>
+<button onclick="showAnswer('q4','right')">SSD / HDD</button>
+<p id="q4" class="answer"></p>
+
+<h3>5. 輸入裝置，負責控制游標和點擊？</h3>
+<button onclick="showAnswer('q5','right')">滑鼠</button>
+<button onclick="showAnswer('q5','wrong')">鍵盤</button>
+<p id="q5" class="answer"></p>
+
+<script>
+function showAnswer(q,result){
+  const p = document.getElementById(q);
+  if(result==='right'){
+    p.textContent='✅ 正確';
+    p.style.color='green';
+  } else {
+    p.textContent='❌ 錯誤';
+    p.style.color='red';
+  }
+}
+</script>
+
+</body>
+</html>
