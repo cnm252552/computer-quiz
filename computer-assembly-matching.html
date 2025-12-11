@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>組裝電腦連連看遊戲</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; }
+  h1 { text-align: center; }
+  .game { display: flex; justify-content: space-between; max-width: 900px; margin: 0 auto; }
+  .column { width: 45%; }
+  .item { background: #f0f0f0; padding: 10px; margin: 5px 0; cursor: pointer; border-radius: 5px; }
+  .matched { background: #8bc34a; color: white; cursor: default; }
+</style>
+</head>
+<body>
+
+<h1>組裝電腦連連看</h1>
+<p>將左邊步驟與右邊正確的注意事項配對</p>
+
+<div class="game">
+  <div class="column" id="steps">
+    <div class="item" data-id="1">安裝CPU和CPU風扇</div>
+    <div class="item" data-id="2">安裝記憶體</div>
+    <div class="item" data-id="3">安裝硬碟</div>
+    <div class="item" data-id="4">安裝電源供應器</div>
+    <div class="item" data-id="5">將主機板放入機殼</div>
+    <div class="item" data-id="6">連接供電線</div>
+    <div class="item" data-id="7">安裝顯示卡，連接供電線</div>
+    <div class="item" data-id="8">整理線材</div>
+  </div>
+  <div class="column" id="tips">
+    <div class="item" data-id="1">CPU要對準防呆槽，塗米粒大小散熱膏，鎖散熱器時保持均勻壓力。</div>
+    <div class="item" data-id="2">記憶體金手指缺口對準插槽，兩端施壓直到卡榫自動彈回。</div>
+    <div class="item" data-id="3">M.2 SSD裝散熱片，2.5吋SSD放機殼，HDD裝硬碟架。</div>
+    <div class="item" data-id="4">電源散熱風扇朝下，線材提前規劃走向避免阻礙安裝。</div>
+    <div class="item" data-id="5">主機板I/O接口對齊機殼開孔，螺絲鎖緊即可，不要過力。</div>
+    <div class="item" data-id="6">連接主板、CPU、風扇及前板I/O線，注意Power/HDD LED正負極。</div>
+    <div class="item" data-id="7">安裝顯卡插槽對齊，供電線完全插入卡榫牢固鎖定。</div>
+    <div class="item" data-id="8">將線材藏到背板空間，保持風扇葉片不被碰到，維持氣流順暢。</div>
+  </div>
+</div>
+
+<p id="message" style="text-align:center;font-weight:bold;margin-top:20px;"></p>
+
+<script>
+let first = null;
+let lock = false;
+
+document.querySelectorAll('.item').forEach(item => {
+  item.addEventListener('click', function() {
+    if (lock || item.classList.contains('matched')) return;
+
+    item.classList.add('selected');
+
+    if (!first) {
+      first = item;
+    } else {
+      lock = true;
+      const second = item;
+      if (first.dataset.id === second.dataset.id) {
+        first.classList.add('matched');
+        second.classList.add('matched');
+        document.getElementById('message').textContent = "配對成功！";
+      } else {
+        document.getElementById('message').textContent = "配對錯誤，再試一次！";
+        setTimeout(() => {
+          first.classList.remove('selected');
+          second.classList.remove('selected');
+        }, 1000);
+      }
+      first = null;
+      setTimeout(() => lock = false, 1000);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
